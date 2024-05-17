@@ -11,7 +11,7 @@ import (
 func main() {
 	/* This would match routes like the following:
 	   /sum/3/5
-	   /product/6/23
+	   /product/6/24
 	   ...
 	*/
 	beego.Router("/:operation/:num1:int/:num2:int", &mainController{})
