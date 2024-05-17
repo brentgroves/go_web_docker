@@ -613,7 +613,11 @@ To check the setup, visit <http://localhost:8010/sum/4/5> in your browser. You s
 
 ## Continuous Integration with Semaphore
 
-Docker is a great solution to package and deploy Go applications. The only downside is the additional steps required to build and test the image. This hurdle is easily is best dealt with Continuous Integration and Continuous Delivery (CI/CD).
+Docker is a great solution to package and deploy Go applications. The only downside is the additional steps required to build and test the image. This hurdle is easily is best dealt with **[Continuous Integration and Continuous Delivery (CI/CD)](https://semaphoreci.com/cicd)**.
+
+A **[Continuous Integration (CI) platform](https://semaphoreci.com/continuous-integration)** can test our code on every iteration, on every push and every merge. Developers adopting CI no longer have to fear of merging branches, nor be anxious about release day. In fact, CI lets developers merge all the time and make safe releases any day of the week. A good CI setup will run a series of comprehensive tests, like the ones we prepared so far, to weed out any bugs.
+
+Once the code is ready, we can extend our CI setup with **[Continuous Delivery (CD)](https://semaphoreci.com/cicd)**. CD can prepare and build the Docker images, leaving them ready to deploy at any time.
 
 ## **[NEXT](https://semaphoreci.com/community/tutorials/how-to-deploy-a-go-web-application-with-docker)**
 
