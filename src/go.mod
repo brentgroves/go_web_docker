@@ -1,6 +1,6 @@
 module github.com/brentgroves/go_web_docker.git
 
-go 1.18
+go 1.22
 
 require github.com/astaxie/beego v1.12.3
 
