@@ -1,6 +1,6 @@
 # Dockerfile.production
 
-FROM registry.semaphoreci.com/golang:1.22 as builder
+FROM registry.semaphoreci.com/golang:1.18 as builder
 
 ENV APP_HOME /go/src/mathapp
 
@@ -11,7 +11,7 @@ RUN go mod download
 RUN go mod verify
 RUN go build -o mathapp
 
-FROM registry.semaphoreci.com/golang:1.22
+FROM registry.semaphoreci.com/golang:1.18
 
 ENV APP_HOME /go/src/mathapp
 RUN mkdir -p "$APP_HOME"
