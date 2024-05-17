@@ -619,6 +619,79 @@ A **[Continuous Integration (CI) platform](https://semaphoreci.com/continuous-in
 
 Once the code is ready, we can extend our CI setup with **[Continuous Delivery (CD)](https://semaphoreci.com/cicd)**. CD can prepare and build the Docker images, leaving them ready to deploy at any time.
 
+Push the Code to GitHub
+Let’s push our modifications to GitHub:
+
+Open .gitignore and uncomment the vendor/ line, so vendored modules are not committed:
+
+```git
+# Dependency directories (remove the comment below to include it)
+vendor/
+
+# Build artifact
+src/mathapp
+```
+
+Push all the code with git:
+
+```bash
+git add Dockerfile*
+git add src
+git add .gitignore
+git commit -m "initial commit"
+git push origin main
+```
+
+## Adding the Repository to Semaphore
+
+We can add CI to our project for free in just a few minutes:
+
+Go to Semaphore and sign up using the Sign up with GitHub button. This will link up both accounts.
+
+Go to Semaphore and sign up using the Sign up with GitHub button. This will link up both accounts.
+Click on the + Create New create a new project:
+
+![](https://semaphoreci.com/wp-content/uploads/2022/05/CleanShot-2022-05-03-at-10.19.14@2x-5-1056x395.webp)
+
+Find your GitHub repository and click on Choose:
+
+![](https://semaphoreci.com/wp-content/uploads/2022/05/CleanShot-2022-05-10-at-10.45.40@2x-1056x434.webp)
+
+Select the Go starter workflow. Click on Customize it first:
+
+![](https://semaphoreci.com/wp-content/uploads/2022/05/CleanShot-2022-05-10-at-10.47.14@2x-1056x828.webp)
+
+You’ll get the Workflow Editor. Here’s an overview of how it works:
+
+![](https://semaphoreci.com/wp-content/uploads/2022/05/sample-1-1056x548.webp)
+
+- Pipeline: A **[pipeline](https://semaphoreci.com/blog/cicd-pipeline)** has a specific objective, e.g. building or testing. Pipelines are made of blocks that are executed from left to right in an agent.
+
+- Agent: The agent is the virtual machine that powers the pipeline. We have three **[machine types](https://docs.semaphoreci.com/ci-cd-environment/machine-types/)** to choose from. The machine runs an optimized **[Ubuntu 20.04](https://docs.semaphoreci.com/ci-cd-environment/ubuntu-20.04-image/)** image with build tools for many languages.
+
+- Block: blocks group jobs that can be executed in **[parallel](https://semaphoreci.com/blog/revving-up-continuous-integration-with-parallel-testing)**.
+
+- Job: jobs define the commands that do the work. They inherit their configuration from their parent block.
+
+Coming back to our setup. The started workflow expects the code at the project’s root, but our code is inside the src directory so we need to make a small modification:
+
+- Click on the Test block.
+- On the right side, you’ll find the job’s commands, change them so they look like this:
+
+```bash
+sem-version go 1.18
+export GO111MODULE=on
+export GOPATH=~/go
+export PATH=/home/semaphore/go/bin:$PATH
+checkout
+cd src
+go get ./...
+go test ./...
+go build -v .
+```
+
+<https://docs.semaphoreci.com/ci-cd-environment/sem-version-managing-language-versions-on-linux/>
+
 ## **[NEXT](https://semaphoreci.com/community/tutorials/how-to-deploy-a-go-web-application-with-docker)**
 
 **[github repo](https://medium.com/@joeponzio/how-to-use-a-private-github-repo-as-a-go-module-442fbedc80c9)**
